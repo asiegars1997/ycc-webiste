@@ -578,6 +578,28 @@
   .legal-body th{background:var(--navy);color:var(--gold-soft);}
   .foot-bottom a{color:inherit;text-decoration:none;cursor:pointer;}
   .foot-bottom a:hover{color:var(--gold-soft);text-decoration:underline;}
+
+  /* ---------- Mobile (added Oct 24) ---------- */
+  .nav-burger{padding:10px 6px;margin-right:2px;border:0;background:none;}
+  .mnav{position:fixed;inset:0;z-index:200;display:none;}
+  .mnav.open{display:block;}
+  .mnav-bg{position:absolute;inset:0;background:rgba(4,12,26,.6);}
+  .mnav-panel{position:absolute;top:0;right:0;bottom:0;width:min(84vw,340px);background:var(--navy);border-left:1px solid var(--line-strong);padding:18px 20px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;box-shadow:-20px 0 40px rgba(0,0,0,.4);}
+  .mnav-close{align-self:flex-end;background:none;border:0;color:var(--ivory);font-size:1.9rem;line-height:1;padding:4px 8px;cursor:pointer;}
+  .mnav-label{font:600 .72rem 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);margin:14px 0 4px;}
+  .mnav-panel button.mnav-link{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ivory);font:500 1.02rem 'Inter',sans-serif;padding:14px 4px;cursor:pointer;}
+  .mnav-panel button.mnav-link:active{color:var(--gold-soft);}
+  .mnav-auth{display:flex;flex-direction:column;gap:10px;margin-top:22px;}
+  .mnav-auth a{justify-content:center;text-align:center;padding:14px;}
+  body.mnav-lock{overflow:hidden;}
+  @media (max-width:560px){
+    .size-table{min-width:0;font-size:.8rem;}
+    .size-table th,.size-table td{padding:9px 5px;}
+    .size-table thead th{font-size:.64rem;letter-spacing:.02em;}
+    .size-table-wrap{padding:16px 12px;}
+    .rw-swipe{display:block !important;}
+  }
+  .rw-swipe{display:none;font-size:.75rem;color:var(--slate);margin:-4px 0 8px;}
 </style></head><body>
 
 <div class="modal-ov" id="auth-modal" role="dialog" aria-modal="true" aria-label="Log in or sign up">
@@ -1385,7 +1407,7 @@
     <div class="wrap">
       <div class="sec-head"><div class="eyebrow">Rewards by tier</div><h2>What each tier earns</h2></div>
       <div class="size-table-wrap" style="margin-top:22px;">
-        <table class="size-table rw-table">
+        <div class="rw-swipe">Swipe the table sideways to compare all plans →</div><table class="size-table rw-table">
           <thead><tr><th></th><th>Essential</th><th>Premium</th><th>Elite</th><th>VIP</th></tr></thead>
           <tbody><tr><th>YCC Coins back on eligible bookings</th><td class="no">No</td><td class="yes">3%</td><td class="yes">5%</td><td class="yes">5%</td></tr><tr><th>2% back in YCC Coins on marketplace orders</th><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>YCC Club Platform &amp; Booking Engine</th><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>Airport lounge access</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>Flight insurance</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>Fast passport &amp; visa</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>Dedicated concierge</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr><th>24/7 doctor access</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr></tbody>
         </table>
@@ -1946,5 +1968,28 @@ fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},
 if(x.ok){f.reset();st.style.color='#c9a84c';st.textContent='Thanks, your message is on its way. We will reply to you by email.';}
 else{st.style.color='#e07a5f';st.textContent='Sorry, that did not send. Please email contact@yachtcrewcenter.com directly.';}
 }).catch(function(){st.style.color='#e07a5f';st.textContent='Sorry, that did not send. Please email contact@yachtcrewcenter.com directly.';}).finally(function(){btn.disabled=false;btn.textContent='Send message';});});})();
+</script>
+<script>
+/* Mobile menu: the burger opens a drawer with every page */
+(function(){
+  var NEXUS=typeof NEXUS_URL!=='undefined'?NEXUS_URL:'https://seemynft.page/MyToken/69A2E75F-3558-4B6D-8B35-54B76B2B2F68';
+  var d=document.createElement('div'); d.className='mnav'; d.setAttribute('aria-hidden','true');
+  d.innerHTML='<div class="mnav-bg"></div><nav class="mnav-panel" aria-label="Menu"><button class="mnav-close" aria-label="Close menu">&times;</button>'+
+   '<button class="mnav-link" data-m="home">Home</button>'+
+   '<div class="mnav-label">Sectors</div>'+
+   '<button class="mnav-link" data-m="sector-crew">Crew</button><button class="mnav-link" data-m="sector-yacht">Yacht</button><button class="mnav-link" data-m="sector-owner">Owner</button><button class="mnav-link" data-m="sector-vendors">Maritime Business</button>'+
+   '<div class="mnav-label">More</div>'+
+   '<button class="mnav-link" data-m="rewards">YCC Rewards</button><button class="mnav-link" data-m="ai">AI Assistant</button><button class="mnav-link" data-m="about-contact">Contact Us</button>'+
+   '<div class="mnav-auth"><a class="btn btn-gold" href="'+NEXUS+'">Sign up</a><a class="btn" style="border:1px solid var(--line-strong);color:var(--ivory);" href="'+NEXUS+'">Log in</a></div></nav>';
+  document.body.appendChild(d);
+  function open(){d.classList.add('open');d.setAttribute('aria-hidden','false');document.body.classList.add('mnav-lock');}
+  function close(){d.classList.remove('open');d.setAttribute('aria-hidden','true');document.body.classList.remove('mnav-lock');}
+  document.querySelectorAll('.nav-burger').forEach(function(b){b.setAttribute('role','button');b.setAttribute('aria-label','Open menu');b.setAttribute('tabindex','0');b.addEventListener('click',open);b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});});
+  d.querySelector('.mnav-bg').addEventListener('click',close); d.querySelector('.mnav-close').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  d.querySelectorAll('[data-m]').forEach(function(b){b.addEventListener('click',function(){var g=b.getAttribute('data-m');close();
+    if(g==='about-contact'){window.yccShow&&window.yccShow('about');setTimeout(function(){var c=document.getElementById('about-contact');if(c)c.scrollIntoView({behavior:'smooth'});},60);}
+    else if(window.yccShow){window.yccShow(g);}});});
+})();
 </script>
 </body></html>
