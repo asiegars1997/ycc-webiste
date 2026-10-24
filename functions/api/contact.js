@@ -13,12 +13,13 @@ export async function onRequestPost({ request, env }) {
   const name = clean(d.name, 120), email = clean(d.email, 200), role = clean(d.role, 60);
   const message = String(d.message || "").trim().slice(0, 5000);
   if (!name || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: "invalid" }, 400);
-  if (!env.SENDGRID_API_KEY) return json({ ok: false, error: "not_configured" }, 500);
+  const KEY = env.SENDGRID_API_KEY || env.sendgridapi;
+  if (!KEY) return json({ ok: false, error: "not_configured" }, 500);
 
   const text = `New message from the YCC website contact form\n\nName: ${name}\nEmail: ${email}\nI am a: ${role}\n\nMessage:\n${message}\n`;
   const r = await fetch("https://api.sendgrid.com/v3/mail/send", {
     method: "POST",
-    headers: { authorization: `Bearer ${env.SENDGRID_API_KEY}`, "content-type": "application/json" },
+    headers: { authorization: `Bearer ${KEY}`, "content-type": "application/json" },
     body: JSON.stringify({
       personalizations: [{ to: [{ email: TO }] }],
       from: { email: FROM, name: "YCC Website" },
